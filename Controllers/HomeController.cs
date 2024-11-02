@@ -1,6 +1,7 @@
 ﻿using InTheBag.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace InTheBag.Controllers
 {
@@ -53,6 +54,13 @@ namespace InTheBag.Controllers
             WishList.Add("La Salud");
             WishList.Add("La Felicidad");
             TempData["WishList"] = WishList;
+            return View();
+        }
+        public IActionResult WishIndex()
+        {
+            Wishes myWishes = new Wishes { ID = 1, wish1 = "Healthy", wish2 = "Wealthy", wish3 = "Wise" };
+            string jsonWishes = JsonSerializer.Serialize(myWishes);
+            HttpContext.Session.SetString("wish",jsonWishes);
             return View();
         }
     }
