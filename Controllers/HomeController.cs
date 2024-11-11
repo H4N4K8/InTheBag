@@ -56,12 +56,24 @@ namespace InTheBag.Controllers
             TempData["WishList"] = WishList;
             return View();
         }
-        public IActionResult WishIndex()
+        /*public IActionResult WishIndex()
         {
             Wishes myWishes = new Wishes { ID = 1, wish1 = "Healthy", wish2 = "Wealthy", wish3 = "Wise" };
             string jsonWishes = JsonSerializer.Serialize(myWishes);
             HttpContext.Session.SetString("wish",jsonWishes);
             return View();
+        }*/
+        public IActionResult NewWishIndex(int? ID)
+        {
+            Wishes myWishes = new Wishes {
+                ID = 2, 
+                wish1 = Request.Form["wish1"], 
+                wish2 = Request.Form["wish2"], 
+                wish3 = Request.Form["wish3"] 
+            };
+            string jsonWishes = JsonSerializer.Serialize(myWishes);
+            HttpContext.Session.SetString("wish", jsonWishes);
+            return View("WishIndex");
         }
     }
 }
